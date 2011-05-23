@@ -11,14 +11,14 @@ module WhoopsNotifier
     
     def investigate!
       create_report
-      send unless ignore_report
+      send_report unless ignore_report
     end
     
     def create_report
       strategy.apply(self)
     end
     
-    def send
+    def send_report
       Sender.send_report(self.report)
     end
   end
