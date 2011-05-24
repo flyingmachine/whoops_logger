@@ -1,11 +1,11 @@
 module WhoopsNotifier
   class Investigator
-    # ask witnesses for data, create a report using a strategy, send or ignore
-    attr_accessor :strategy, :report, :witnesses, :ignore_report
+    # get data from evidence using a strategy to create a report, then send or ignore
+    attr_accessor :strategy, :report, :evidence, :ignore_report
 
-    def initialize(strategy, witnesses)
+    def initialize(strategy, evidence)
       self.strategy = strategy
-      self.witnesses = witnesses
+      self.evidence = evidence
       self.report = Report.new
     end
     
