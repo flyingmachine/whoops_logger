@@ -1,3 +1,7 @@
+require 'net/http'
+require 'net/https'
+require 'json'
+
 module WhoopsNotifier
   autoload :Configuration, 'whoops_notifier/configuration'
   autoload :Investigator,  'whoops_notifier/investigator'
@@ -6,10 +10,10 @@ module WhoopsNotifier
   autoload :Strategy,      'whoops_notifier/strategy'
   
   class << self
-    attr_accessor :strategies
+    attr_accessor :strategies, :config
     def notify(strategy_name, evidence = {})
       if strategy_name.is_a? Hash
-        notify(strategies["default::basic"], strategy_name)
+        notify("default::basic", strategy_name)
       else
         investigator = Investigator.new(strategies[strategy_name], evidence)
         investigator.investigate!
@@ -18,4 +22,9 @@ module WhoopsNotifier
   end
   
   self.strategies = {}
+  self.config = Configuration.new
+end
+
+Dir[File.join(File.dirname(__FILE__),"whoops_notifier/strategies/*.rb")].each do |strategy_file|
+  require strategy_file
 end

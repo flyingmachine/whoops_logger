@@ -4,6 +4,7 @@ module WhoopsNotifier
     attr_accessor :strategy, :report, :evidence, :ignore_report
 
     def initialize(strategy, evidence)
+      # TODO raise error if strategy is nil
       self.strategy = strategy
       self.evidence = evidence
       self.report = Report.new
@@ -19,7 +20,9 @@ module WhoopsNotifier
     end
     
     def send_report
-      Sender.send_report(self.report)
+      hash = {:event => self.report.to_hash}
+      data = hash.to_json
+      Sender.new(WhoopsNotifier.config.to_hash).send_report(data)
     end
   end
 end

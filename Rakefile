@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "whoops_notifier"
   gem.homepage = "http://github.com/flyingmachine/whoops_notifier"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Handles basic notification responsibilities and allows creation of report creation strategies}
+  gem.description = %Q{Handles basic notification responsibilities and allows creation of report creation strategies}
   gem.email = "daniel@flyingmachinestudios.com"
   gem.authors = ["Daniel Higginbotham"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,

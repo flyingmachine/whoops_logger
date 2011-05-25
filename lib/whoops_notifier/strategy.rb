@@ -1,7 +1,3 @@
-Dir["strategies/*.rb"].each do |strategy_file|
-  require strategy_file
-end
-
 module WhoopsNotifier
   class Strategy
     # ask witnesses for data, create a report using a strategy, send or ignore
