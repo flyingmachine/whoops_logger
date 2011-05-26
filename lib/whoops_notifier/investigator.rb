@@ -4,7 +4,8 @@ module WhoopsNotifier
     attr_accessor :strategy, :report, :evidence, :ignore_report
 
     def initialize(strategy, evidence)
-      # TODO raise error if strategy is nil
+      raise ArgumentError, "strategy can not be nil" if strategy.nil?
+      raise ArgumentError, "strategy must respond to 'call'" unless strategy.respond_to?(:call)
       self.strategy = strategy
       self.evidence = evidence
       self.report = Report.new
@@ -16,7 +17,7 @@ module WhoopsNotifier
     end
     
     def create_report
-      strategy.apply(self)
+      strategy.call(self)
     end
     
     def send_report

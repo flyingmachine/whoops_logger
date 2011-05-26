@@ -10,7 +10,7 @@ module WhoopsNotifier
       WhoopsNotifier.strategies[name] = self
     end
     
-    def apply(investigator)
+    def call(investigator)
       report_modifiers.each do |report_modifier|
         report_modifier.call(investigator.report, investigator.evidence)
       end
