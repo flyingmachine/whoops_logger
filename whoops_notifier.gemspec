@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Higginbotham"]
-  s.date = %q{2011-05-24}
+  s.date = %q{2011-05-30}
   s.description = %q{Handles basic notification responsibilities and allows creation of report creation strategies}
   s.email = %q{daniel@flyingmachinestudios.com}
   s.extra_rdoc_files = [
@@ -35,7 +35,8 @@ Gem::Specification.new do |s|
     "spec/investigator_spec.rb",
     "spec/spec_helper.rb",
     "spec/strategy_spec.rb",
-    "spec/whoops_notifier_spec.rb"
+    "spec/whoops_notifier_spec.rb",
+    "whoops_notifier.gemspec"
   ]
   s.homepage = %q{http://github.com/flyingmachine/whoops_notifier}
   s.licenses = ["MIT"]
