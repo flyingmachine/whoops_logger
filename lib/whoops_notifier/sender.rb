@@ -24,10 +24,11 @@ module WhoopsNotifier
 
     # Sends the notice data off to Hoptoad for processing.
     #
-    # @param [String] data The JSON notice to be sent off
+    # @param [Hash] data The notice to be sent off
     def send_report(data)
       # TODO: format
       # TODO: validation
+      data = {:event => data}.to_json
       logger.debug { "Sending request to #{url.to_s}:\n#{data}" } if logger
 
       http =

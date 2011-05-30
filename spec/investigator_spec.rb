@@ -14,4 +14,22 @@ describe "WhoopsNotifier::Investigator" do
       lambda{WhoopsNotifier::Investigator.new(Proc.new{}, {})}.should_not raise_exception
     end
   end
+  
+  describe "#investigate!" do
+    it "should not send report if ignore_report is true" do
+      strategy = mock(:call)
+      investigator = WhoopsNotifier::Investigator.new(strategy, {})
+      investigator.ignore_report = true
+      
+      investigator.expects(:send_report).never
+      
+      investigator.investigate!
+    end
+  end
+  
+  describe "#send_report" do
+    it "should send the report's hash" do
+      
+    end
+  end
 end

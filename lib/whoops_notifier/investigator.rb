@@ -21,9 +21,7 @@ module WhoopsNotifier
     end
     
     def send_report
-      hash = {:event => self.report.to_hash}
-      data = hash.to_json
-      Sender.new(WhoopsNotifier.config.to_hash).send_report(data)
+      Sender.new(WhoopsNotifier.config.to_hash).send_report(self.report.to_hash)
     end
   end
 end
