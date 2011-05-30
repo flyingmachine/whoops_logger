@@ -35,6 +35,18 @@ describe "WhoopsNotifier::Strategy" do
       strategy.call(investigator)
       investigator.ignore_report.should == true
     end
+    
+    it "should modify the investigator's report according to the report modifiers" do
+      strategy = WhoopsNotifier::Strategy.new(:test)
+      investigator = WhoopsNotifier::Investigator.new(strategy, {:service => "service"})
+      strategy.add_report_modifier(:add_details){ |report, evidence|
+        report.service = evidence[:service] + " test"
+      }
+      
+      strategy.call(investigator)
+      
+      investigator.report.service.should == "service test"
+    end
   end
   
   describe "#inspect" do
