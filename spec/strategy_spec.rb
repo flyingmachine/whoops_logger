@@ -23,7 +23,7 @@ describe "WhoopsNotifier::Strategy" do
     end
   end
   
-  describe "#apply" do
+  describe "#call" do
     it "should change the investigator's 'ignore' attribute to true if any ignore criteria are true" do
       strategy = WhoopsNotifier::Strategy.new(:test)
       investigator = WhoopsNotifier::Investigator.new(strategy, nil)
@@ -32,8 +32,26 @@ describe "WhoopsNotifier::Strategy" do
         true
       end
       
-      strategy.apply(investigator)
+      strategy.call(investigator)
       investigator.ignore_report.should == true
+    end
+  end
+  
+  describe "#inspect" do
+    it "should list name, report modifier names, and ignore criteria names" do
+      strategy = WhoopsNotifier::Strategy.new(:awesome_strategy)
+      investigator = WhoopsNotifier::Investigator.new(strategy, nil)
+      
+      strategy.add_report_modifier(:report1){ }
+      strategy.add_report_modifier(:report2){ }
+      
+      strategy.add_ignore_criterion(:ignore1){ true }
+      strategy.add_ignore_criterion(:ignore2){ true }
+      
+      strategy.inspect.should == "awesome_strategy
+report modifiers: report1, report2
+ignore criteria: ignore1, ignore2"
+      
     end
   end
 end

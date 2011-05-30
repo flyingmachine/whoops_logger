@@ -41,6 +41,10 @@ module WhoopsNotifier
         attr_accessor :name
       end
       block.name = name
-    end    
+    end
+    
+    def inspect
+      "#{name}\nreport modifiers: #{report_modifiers.collect{|r| r.name}.join(", ")}\nignore criteria: #{ignore_criteria.collect{|i| i.name}.join(", ")}"
+    end
   end
 end
