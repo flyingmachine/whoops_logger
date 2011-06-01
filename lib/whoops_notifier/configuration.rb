@@ -1,8 +1,7 @@
 # Copyright (c) 2007, Tammer Saleh, Thoughtbot, Inc.
-module WhoopsNotifier
+module WhoopsNotifier  
   # Used to set up and modify settings for the notifier.
   class Configuration
-
     OPTIONS = [:host, :http_open_timeout, :http_read_timeout,
         :port, :protocol, :proxy_host,
         :proxy_pass, :proxy_port, :proxy_user, :secure].freeze
@@ -81,6 +80,42 @@ module WhoopsNotifier
       end
     end
 
+    def set(config)
+      case config
+      when Hash: set_with_hash(config)
+      when IO: set_with_io(config)
+      when String: set_with_string(config)
+      end
+    end
+    
+    def set_with_hash(config)
+      OPTIONS.each do |option|
+        if config.has_key?(option)
+          self.send("#{option}=", config[option])
+        elsif config.has_key?(option.to_s)
+          self.send("#{option}=", config[option.to_s])
+        end
+      end
+    end
+    
+    # String should be either a filename or YAML
+    def set_with_string(config)
+      if File.exists?(config)
+        set_with_yaml(File.read(config))
+      else
+        set_with_yaml(config)
+      end
+    end
+    
+    def set_with_io(config)
+      set_with_hash(YAML.load(config))
+      config.close
+    end
+    
+    def set_with_yaml(config)
+      set_with_hash(YAML.load(config))
+    end
+
     private
 
     def default_port
@@ -90,7 +125,5 @@ module WhoopsNotifier
         80
       end
     end
-
   end
-
 end

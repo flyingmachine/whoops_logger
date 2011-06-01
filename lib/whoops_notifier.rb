@@ -21,8 +21,12 @@ module WhoopsNotifier
     end
   end
   
+  def self.config
+    @config ||= Configuration.new
+  end
+  
+  
   self.strategies = {}
-  self.config = Configuration.new
 end
 
 Dir[File.join(File.dirname(__FILE__),"whoops_notifier/strategies/*.rb")].each do |strategy_file|
