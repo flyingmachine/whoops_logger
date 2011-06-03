@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{whoops_notifier}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Higginbotham"]
-  s.date = %q{2011-05-30}
+  s.date = %q{2011-06-03}
   s.description = %q{Handles basic notification responsibilities and allows creation of report creation strategies}
   s.email = %q{daniel@flyingmachinestudios.com}
   s.extra_rdoc_files = [
@@ -32,6 +32,8 @@ Gem::Specification.new do |s|
     "lib/whoops_notifier/sender.rb",
     "lib/whoops_notifier/strategies/basic.rb",
     "lib/whoops_notifier/strategy.rb",
+    "spec/configuration_spec.rb",
+    "spec/fixtures/whoops_notifier.yml",
     "spec/investigator_spec.rb",
     "spec/spec_helper.rb",
     "spec/strategy_spec.rb",
@@ -44,6 +46,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Handles basic notification responsibilities and allows creation of report creation strategies}
   s.test_files = [
+    "spec/configuration_spec.rb",
     "spec/investigator_spec.rb",
     "spec/spec_helper.rb",
     "spec/strategy_spec.rb",
