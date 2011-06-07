@@ -17,11 +17,11 @@ describe "WhoopsNotifier::Investigator" do
   
   describe "#investigate!" do
     it "should not send report if ignore_report is true" do
-      strategy = mock(:call)
+      strategy = lambda{}
       investigator = WhoopsNotifier::Investigator.new(strategy, {})
       investigator.ignore_report = true
       
-      investigator.expects(:send_report).never
+      investigator.should_not_receive(:send_report)
       
       investigator.investigate!
     end
