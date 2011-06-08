@@ -22,13 +22,13 @@ module WhoopsNotifier
       end
     end
 
-    # Sends the notice data off to Hoptoad for processing.
+    # Sends the notice data off to Whoops for processing.
     #
     # @param [Hash] data The notice to be sent off
     def send_report(data)
       # TODO: format
       # TODO: validation
-      data = {:event => data}.to_json
+      data = prepare_data(data)
       logger.debug { "Sending request to #{url.to_s}:\n#{data}" } if logger
 
       http =
@@ -58,6 +58,10 @@ module WhoopsNotifier
         error_id[1] if error_id
       end
     end
+    
+    def prepare_data(data)
+      {:event => data}.to_json
+    end
 
     private
 
@@ -70,13 +74,10 @@ module WhoopsNotifier
 
     def log(level, message, response = nil)
       logger.send level, LOG_PREFIX + message if logger
-      # HoptoadNotifier.report_environment_info
-      # HoptoadNotifier.report_response_body(response.body) if response && response.respond_to?(:body)
     end
 
     def logger
       WhoopsNotifier.config.logger
-    end
-    
+    end 
   end
 end

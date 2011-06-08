@@ -31,7 +31,7 @@ module WhoopsNotifier
     end
     
     # block takes one param, the investigator's report
-    def add_ignore_criterion(name, &block)
+    def add_ignore_case(name, &block)
       give_name(name, block)
       @ignore_criteria << block
     end

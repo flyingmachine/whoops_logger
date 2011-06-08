@@ -2,12 +2,12 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "WhoopsNotifier::Strategy" do
   describe "#initialize" do
-    it "should add strategy to WhoopsNotifier.strategies" do
+    it "adds a strategy to WhoopsNotifier.strategies" do
       s = WhoopsNotifier::Strategy.new(:test)
       WhoopsNotifier.strategies[:test].should == s
     end
     
-    it "should create empty arrays for ignore criteria and report_modifiers" do
+    it "creates empty arrays for ignore criteria and report_modifiers" do
       s = WhoopsNotifier::Strategy.new(:test)
       s.ignore_criteria.should == []
       s.report_modifiers.should == []
@@ -15,11 +15,20 @@ describe "WhoopsNotifier::Strategy" do
   end
   
   describe "#add_report_modifier" do
-    it "should add a named block" do
+    it "adds a named block" do
       s = WhoopsNotifier::Strategy.new(:test)
       s.add_report_modifier(:add_message) { |investigator| }
 
       s.report_modifiers.first.name.should == :add_message
+    end
+  end
+  
+  describe "#add_ignore_case" do
+    it "adds a named ignore criteria block" do
+      s = WhoopsNotifier::Strategy.new(:test)
+      s.add_ignore_case(:ignore_if_empty) { |investigator| }
+
+      s.ignore_criteria.first.name.should == :ignore_if_empty
     end
   end
   
@@ -28,7 +37,7 @@ describe "WhoopsNotifier::Strategy" do
       strategy = WhoopsNotifier::Strategy.new(:test)
       investigator = WhoopsNotifier::Investigator.new(strategy, nil)
       
-      strategy.add_ignore_criterion(:always_ignore) do |report|
+      strategy.add_ignore_case(:always_ignore) do |report|
         true
       end
       
@@ -57,8 +66,8 @@ describe "WhoopsNotifier::Strategy" do
       strategy.add_report_modifier(:report1){ }
       strategy.add_report_modifier(:report2){ }
       
-      strategy.add_ignore_criterion(:ignore1){ true }
-      strategy.add_ignore_criterion(:ignore2){ true }
+      strategy.add_ignore_case(:ignore1){ true }
+      strategy.add_ignore_case(:ignore2){ true }
       
       strategy.inspect.should == "awesome_strategy
 report modifiers: report1, report2
