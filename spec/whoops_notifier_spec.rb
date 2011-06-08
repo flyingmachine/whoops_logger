@@ -5,13 +5,16 @@ describe "WhoopsNotifier" do
   
   describe ".strategies" do
     it "is a hash with keys of strategy names and values of strategy objects" do
-      
+      WhoopsNotifier.strategies.each do |key, value|
+        (key.instance_of?(Symbol) || key.instance_of?(String)).should be_true
+        value.should be_a WhoopsNotifier::Strategy
+      end
     end
   end
   
   describe ".config" do
     it "returns a WhoopsNotifier::Configuration object" do
-      
+      WhoopsNotifier.config.should be_a(WhoopsNotifier::Configuration)
     end
   end
   
