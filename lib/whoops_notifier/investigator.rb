@@ -1,7 +1,8 @@
 module WhoopsNotifier
   class Investigator
-    # get data from evidence using a strategy to create a report, then send or ignore
+    # get data from evidence using a strategy to create a report and decide whether it should be ignored
     attr_accessor :strategy, :report, :evidence, :ignore_report
+    alias :ignore_report? :ignore_report
 
     def initialize(strategy, evidence)
       raise ArgumentError, "strategy can not be nil" if strategy.nil?
@@ -13,15 +14,10 @@ module WhoopsNotifier
     
     def investigate!
       create_report
-      send_report unless ignore_report
     end
     
     def create_report
       strategy.call(self)
-    end
-    
-    def send_report
-      Sender.new(WhoopsNotifier.config.to_hash).send_report(self.report.to_hash)
     end
   end
 end

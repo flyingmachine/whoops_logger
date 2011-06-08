@@ -1,4 +1,6 @@
-# Copyright (c) 2007, Tammer Saleh, Thoughtbot, Inc.
+require 'yaml'
+
+# Borrows heavily from Hoptoad Notifier by Tammer Saleh
 module WhoopsNotifier  
   # Used to set up and modify settings for the notifier.
   class Configuration
@@ -90,6 +92,7 @@ module WhoopsNotifier
     
     def set_with_hash(config)
       OPTIONS.each do |option|
+        next unless self.respond_to?("#{option}=")
         if config.has_key?(option)
           self.send("#{option}=", config[option])
         elsif config.has_key?(option.to_s)

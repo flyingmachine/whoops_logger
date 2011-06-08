@@ -1,6 +1,15 @@
 describe "WhoopsNotifier::Configuration" do
   describe "#set" do 
-    after(:each) { WhoopsNotifier.config.host = nil }
+    before(:each) {
+      @real_config = WhoopsNotifier.config.to_hash
+      WhoopsNotifier::Configuration::OPTIONS.each do |option|
+        WhoopsNotifier.config.send("#{option}=", nil) if WhoopsNotifier.config.respond_to?("#{option}=".to_sym)
+      end
+    }
+    after(:each) { 
+      WhoopsNotifier.config.set(@real_config)
+    }
+    
     let(:config_path) { File.join(File.dirname(__FILE__), "fixtures/whoops_notifier.yml") }
     it "should set the config from a yaml filename" do
       WhoopsNotifier.config.set(config_path)

@@ -1,12 +1,13 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+rspec_dir = File.dirname(__FILE__)
+
+$LOAD_PATH.unshift(File.join(rspec_dir, '..', 'lib'))
+$LOAD_PATH.unshift(rspec_dir)
 require 'rspec'
 require 'whoops_notifier'
+require 'fakeweb'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+Dir["#{rspec_dir}/support/**/*.rb"].each {|f| require f}
 
-RSpec.configure do |config|
-
-end
+WhoopsNotifier.config.set(File.join(rspec_dir, "fixtures", "whoops_notifier.yml"))
