@@ -25,11 +25,5 @@ describe "WhoopsNotifier::Investigator" do
       
       investigator.investigate!
     end
-  end
-  
-  describe "#send_report" do
-    it "should send the report's hash" do
-      
-    end
-  end
+  end  
 end
