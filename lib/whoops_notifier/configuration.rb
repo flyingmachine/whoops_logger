@@ -111,7 +111,7 @@ module WhoopsNotifier
     end
     
     def set_with_io(config)
-      set_with_hash(YAML.load(config))
+      set_with_yaml(config)
       config.close
     end
     

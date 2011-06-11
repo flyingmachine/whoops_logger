@@ -73,7 +73,7 @@ module WhoopsNotifier
     end
 
     def log(level, message, response = nil)
-      logger.send level, LOG_PREFIX + message if logger
+      logger.send level, message if logger
     end
 
     def logger
