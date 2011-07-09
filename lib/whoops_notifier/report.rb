@@ -5,6 +5,8 @@ module WhoopsNotifier
       attr_accessor attribute
     end
     
+    attr_accessor :ignore
+    
     def initialize
       self.event_time = Time.now
     end
@@ -15,6 +17,10 @@ module WhoopsNotifier
         h[attribute] = self.send(attribute)
       end
       h
+    end
+    
+    def ignore?
+      ignore
     end
   end
 end

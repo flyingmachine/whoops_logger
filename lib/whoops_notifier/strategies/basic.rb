@@ -1,6 +1,6 @@
 strategy = WhoopsNotifier::Strategy.new("default::basic")
 
-strategy.add_report_modifier(:use_basic_hash) do |report, evidence|
+strategy.add_report_builder(:use_basic_hash) do |report, evidence|
   report.event_type             = evidence[:event_type]
   report.service                = evidence[:service]
   report.environment            = evidence[:environment]

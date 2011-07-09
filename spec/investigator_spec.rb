@@ -16,10 +16,10 @@ describe "WhoopsNotifier::Investigator" do
   end
   
   describe "#investigate!" do
-    it "should not send report if ignore_report is true" do
+    it "should not send report if ignore_report? is true" do
       strategy = lambda{}
       investigator = WhoopsNotifier::Investigator.new(strategy, {})
-      investigator.ignore_report = true
+      investigator.stub(:ignore_report?).and_return(true)
       
       investigator.should_not_receive(:send_report)
       
