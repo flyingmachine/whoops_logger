@@ -1,6 +1,23 @@
 module WhoopsNotifier
+  
+  # Strategies are responsible for building Reports and determining whether a
+  # a Report should be ignored.
+  #
+  # Each strategy contains any number of report builders and ignore criteria.
+  # 
+  # Each report builder and ignore criteria takes a name. This makes adding a
+  # report builder or ignore criteria more like adding a method - the name 
+  # makes it easier to see the intention of the code. It also makes it easier
+  # to get useful info when you inspect the strategy.
+  #
+  # Strategies use call to actually apply modifiers and criteria for the same
+  # reason that Rack uses call. Conceivably, you could add a strategy to the
+  # notifier with 
+  # WhoopsNotifier.strategies[:lambda_stragey] = lambda{ |report, evidence| 
+  #   report.details = evidence[:detail]
+  # }
+  # or something along those lines. 
   class Strategy
-    # ask witnesses for data, create a report using a strategy, send or ignore
     attr_accessor :name, :ignore_criteria, :report_builders
 
     def initialize(name)
@@ -16,14 +33,14 @@ module WhoopsNotifier
       end
       
       ignore_criteria.each do |ignore_criterion|
-        if ignore_criterion.call(report)
+        if ignore_criterion.call(report, evidence)
           report.ignore = true
           break
         end
       end
     end
     
-    # block should take one param, the investigator
+    # block should take two params, the report and the evidence
     # use evidence to build the report
     def add_report_builder(name, &block)
       give_name(name, block)

@@ -14,7 +14,7 @@ module WhoopsNotifier
     
     # @overload notify(evidence)
     #   Notify using the default basic strategy
-    #   @param [Hash] evidence the evidence expected by the basic strategy
+    #   @param [Hash] evidence the evidence expected by the basic strategy, used by strategy to build report
     # @overload notify(strategy_name, evidence)
     #   @param [Symbol, String] strategy_name
     #   @param [Hash] evidence same as above

@@ -1,4 +1,6 @@
 module WhoopsNotifier
+  
+  # A "glue" class which coordinates report creation
   class Investigator
     # get data from evidence using a strategy to create a report and decide whether it should be ignored
     attr_accessor :strategy, :report, :evidence
