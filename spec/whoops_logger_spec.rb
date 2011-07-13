@@ -19,26 +19,26 @@ describe "WhoopsLogger" do
   end
   
   describe ".notify" do
-    let(:investigator){ double(:investigator, :investigate! => nil, :message => nil) }
+    let(:message_creator){ double(:message_creator, :create! => nil, :message => nil) }
     
     it "uses the basic strategy if no strategy name is provided" do
       WhoopsLogger.stub(:send_message)
-      investigator.stub(:ignore_message?).and_return(false)
-      WhoopsLogger::Investigator.should_receive(:new).with(WhoopsLogger.strategies["default::basic"], {}).and_return(investigator)
+      message_creator.stub(:ignore_message?).and_return(false)
+      WhoopsLogger::MessageCreator.should_receive(:new).with(WhoopsLogger.strategies["default::basic"], {}).and_return(message_creator)
       WhoopsLogger.notify({})
     end
     
-    it "sends a message when the investigator is not ignoring the event" do
-      investigator.should_receive(:ignore_message?).and_return(false)
-      WhoopsLogger::Investigator.stub(:new).and_return(investigator)
+    it "sends a message when the message_creator is not ignoring the event" do
+      message_creator.should_receive(:ignore_message?).and_return(false)
+      WhoopsLogger::MessageCreator.stub(:new).and_return(message_creator)
       
       WhoopsLogger.should_receive(:send_message)
       WhoopsLogger.notify({})
     end
     
-    it "does not sned a request if the investigator is ignoring the event" do
-      investigator.should_receive(:ignore_message?).and_return(true)
-      WhoopsLogger::Investigator.stub(:new).and_return(investigator)
+    it "does not sned a request if the message_creator is ignoring the event" do
+      message_creator.should_receive(:ignore_message?).and_return(true)
+      WhoopsLogger::MessageCreator.stub(:new).and_return(message_creator)
       
       WhoopsLogger.should_not_receive(:send_message)
       WhoopsLogger.notify({})

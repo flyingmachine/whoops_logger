@@ -33,35 +33,35 @@ describe "WhoopsLogger::Strategy" do
   end
   
   describe "#call" do
-    it "should change the investigator's 'ignore' attribute to true if any ignore criteria are true" do
+    it "should change the message_creator's 'ignore' attribute to true if any ignore criteria are true" do
       strategy = WhoopsLogger::Strategy.new(:test)
-      investigator = WhoopsLogger::Investigator.new(strategy, nil)
+      message_creator = WhoopsLogger::MessageCreator.new(strategy, nil)
       
       strategy.add_ignore_criteria(:always_ignore) do |message|
         true
       end
       
-      strategy.call(investigator.message, investigator.raw_data)
-      investigator.ignore_message?.should == true
+      strategy.call(message_creator.message, message_creator.raw_data)
+      message_creator.ignore_message?.should == true
     end
     
-    it "should modify the investigator's message according to the message modifiers" do
+    it "should modify the message_creator's message according to the message modifiers" do
       strategy = WhoopsLogger::Strategy.new(:test)
-      investigator = WhoopsLogger::Investigator.new(strategy, {:service => "service"})
+      message_creator = WhoopsLogger::MessageCreator.new(strategy, {:service => "service"})
       strategy.add_message_builder(:add_details){ |message, raw_data|
         message.service = raw_data[:service] + " test"
       }
       
-      strategy.call(investigator.message, investigator.raw_data)
+      strategy.call(message_creator.message, message_creator.raw_data)
       
-      investigator.message.service.should == "service test"
+      message_creator.message.service.should == "service test"
     end
   end
   
   describe "#inspect" do
     it "should list name, message modifier names, and ignore criteria names" do
       strategy = WhoopsLogger::Strategy.new(:awesome_strategy)
-      investigator = WhoopsLogger::Investigator.new(strategy, nil)
+      message_creator = WhoopsLogger::MessageCreator.new(strategy, nil)
       
       strategy.add_message_builder(:message1){ }
       strategy.add_message_builder(:message2){ }

@@ -3,11 +3,11 @@ require 'net/https'
 require 'json'
 
 module WhoopsLogger
-  autoload :Configuration, 'whoops_logger/configuration'
-  autoload :Investigator,  'whoops_logger/investigator'
-  autoload :Message,       'whoops_logger/message'
-  autoload :Sender,        'whoops_logger/sender'
-  autoload :Strategy,      'whoops_logger/strategy'
+  autoload :Configuration,   'whoops_logger/configuration'
+  autoload :MessageCreator,  'whoops_logger/message_creator'
+  autoload :Message,         'whoops_logger/message'
+  autoload :Sender,          'whoops_logger/sender'
+  autoload :Strategy,        'whoops_logger/strategy'
   
   class << self
     attr_accessor :strategies, :config
@@ -22,9 +22,9 @@ module WhoopsLogger
       if strategy_name.is_a? Hash
         notify("default::basic", strategy_name)
       else
-        investigator = Investigator.new(strategies[strategy_name], raw_data)
-        investigator.investigate!
-        send_message(investigator.message) unless investigator.ignore_message?
+        message_creator = MessageCreator.new(strategies[strategy_name], raw_data)
+        message_creator.create!
+        send_message(message_creator.message) unless message_creator.ignore_message?
       end
     end
     

@@ -47,7 +47,7 @@ module WhoopsLogger
       @message_builders << block
     end
     
-    # block takes one param, the investigator's message
+    # block takes one param, the message_creator's message
     def add_ignore_criteria(name, &block)
       give_name(name, block)
       @ignore_criteria << block

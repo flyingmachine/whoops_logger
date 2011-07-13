@@ -1,7 +1,7 @@
 module WhoopsLogger
   
   # A "glue" class which coordinates message creation
-  class Investigator
+  class MessageCreator
     # get data from raw_data using a strategy to create a message and decide whether it should be ignored
     attr_accessor :strategy, :message, :raw_data
 
@@ -13,7 +13,7 @@ module WhoopsLogger
       self.message = Message.new
     end
     
-    def investigate!
+    def create!
       strategy.call(message, raw_data)
     end
     
