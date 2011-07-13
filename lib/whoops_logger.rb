@@ -5,31 +5,31 @@ require 'json'
 module WhoopsLogger
   autoload :Configuration, 'whoops_logger/configuration'
   autoload :Investigator,  'whoops_logger/investigator'
-  autoload :Report,        'whoops_logger/report'
+  autoload :Message,       'whoops_logger/message'
   autoload :Sender,        'whoops_logger/sender'
   autoload :Strategy,      'whoops_logger/strategy'
   
   class << self
     attr_accessor :strategies, :config
     
-    # @overload notify(evidence)
+    # @overload notify(raw_data)
     #   Notify using the default basic strategy
-    #   @param [Hash] evidence the evidence expected by the basic strategy, used by strategy to build report
-    # @overload notify(strategy_name, evidence)
+    #   @param [Hash] raw_data the raw_data expected by the basic strategy, used by strategy to build message
+    # @overload notify(strategy_name, raw_data)
     #   @param [Symbol, String] strategy_name
-    #   @param [Hash] evidence same as above
-    def notify(strategy_name, evidence = {})
+    #   @param [Hash] raw_data same as above
+    def notify(strategy_name, raw_data = {})
       if strategy_name.is_a? Hash
         notify("default::basic", strategy_name)
       else
-        investigator = Investigator.new(strategies[strategy_name], evidence)
+        investigator = Investigator.new(strategies[strategy_name], raw_data)
         investigator.investigate!
-        send_report(investigator.report) unless investigator.ignore_report?
+        send_message(investigator.message) unless investigator.ignore_message?
       end
     end
     
-    def send_report(report)
-      Sender.new(WhoopsLogger.config.to_hash).send_report(report.to_hash)
+    def send_message(message)
+      Sender.new(WhoopsLogger.config.to_hash).send_message(message.to_hash)
     end
   end
   

@@ -1,5 +1,5 @@
-module WhoopsNotifier
-  class Report
+module WhoopsLogger
+  class Message
     ATTRIBUTES = [:event_type, :service, :environment, :message, :event_group_identifier, :event_time, :details]
     ATTRIBUTES.each do |attribute|
       attr_accessor attribute

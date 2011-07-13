@@ -16,12 +16,12 @@ describe "WhoopsLogger::Investigator" do
   end
   
   describe "#investigate!" do
-    it "should not send report if ignore_report? is true" do
+    it "should not send message if ignore_message? is true" do
       strategy = lambda{}
       investigator = WhoopsLogger::Investigator.new(strategy, {})
-      investigator.stub(:ignore_report?).and_return(true)
+      investigator.stub(:ignore_message?).and_return(true)
       
-      investigator.should_not_receive(:send_report)
+      investigator.should_not_receive(:send_message)
       
       investigator.investigate!
     end

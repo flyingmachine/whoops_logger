@@ -7,26 +7,26 @@ describe "WhoopsLogger::Strategy" do
       WhoopsLogger.strategies[:test].should == s
     end
     
-    it "creates empty arrays for ignore criteria and report_builders" do
+    it "creates empty arrays for ignore criteria and message_builders" do
       s = WhoopsLogger::Strategy.new(:test)
       s.ignore_criteria.should == []
-      s.report_builders.should == []
+      s.message_builders.should == []
     end
   end
   
-  describe "#add_report_builder" do
+  describe "#add_message_builder" do
     it "adds a named block" do
       s = WhoopsLogger::Strategy.new(:test)
-      s.add_report_builder(:add_message) { |report, evidence| }
+      s.add_message_builder(:add_message) { |message, raw_data| }
 
-      s.report_builders.first.name.should == :add_message
+      s.message_builders.first.name.should == :add_message
     end
   end
   
   describe "#add_ignore_criteria" do
     it "adds a named ignore criteria block" do
       s = WhoopsLogger::Strategy.new(:test)
-      s.add_ignore_criteria(:ignore_if_empty) { |report| }
+      s.add_ignore_criteria(:ignore_if_empty) { |message| }
 
       s.ignore_criteria.first.name.should == :ignore_if_empty
     end
@@ -37,40 +37,40 @@ describe "WhoopsLogger::Strategy" do
       strategy = WhoopsLogger::Strategy.new(:test)
       investigator = WhoopsLogger::Investigator.new(strategy, nil)
       
-      strategy.add_ignore_criteria(:always_ignore) do |report|
+      strategy.add_ignore_criteria(:always_ignore) do |message|
         true
       end
       
-      strategy.call(investigator.report, investigator.evidence)
-      investigator.ignore_report?.should == true
+      strategy.call(investigator.message, investigator.raw_data)
+      investigator.ignore_message?.should == true
     end
     
-    it "should modify the investigator's report according to the report modifiers" do
+    it "should modify the investigator's message according to the message modifiers" do
       strategy = WhoopsLogger::Strategy.new(:test)
       investigator = WhoopsLogger::Investigator.new(strategy, {:service => "service"})
-      strategy.add_report_builder(:add_details){ |report, evidence|
-        report.service = evidence[:service] + " test"
+      strategy.add_message_builder(:add_details){ |message, raw_data|
+        message.service = raw_data[:service] + " test"
       }
       
-      strategy.call(investigator.report, investigator.evidence)
+      strategy.call(investigator.message, investigator.raw_data)
       
-      investigator.report.service.should == "service test"
+      investigator.message.service.should == "service test"
     end
   end
   
   describe "#inspect" do
-    it "should list name, report modifier names, and ignore criteria names" do
+    it "should list name, message modifier names, and ignore criteria names" do
       strategy = WhoopsLogger::Strategy.new(:awesome_strategy)
       investigator = WhoopsLogger::Investigator.new(strategy, nil)
       
-      strategy.add_report_builder(:report1){ }
-      strategy.add_report_builder(:report2){ }
+      strategy.add_message_builder(:message1){ }
+      strategy.add_message_builder(:message2){ }
       
       strategy.add_ignore_criteria(:ignore1){ true }
       strategy.add_ignore_criteria(:ignore2){ true }
       
       strategy.inspect.should == "awesome_strategy
-report builders: report1, report2
+message builders: message1, message2
 ignore criteria: ignore1, ignore2"
       
     end

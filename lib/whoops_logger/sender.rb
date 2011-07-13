@@ -25,7 +25,7 @@ module WhoopsLogger
     # Sends the notice data off to Whoops for processing.
     #
     # @param [Hash] data The notice to be sent off
-    def send_report(data)
+    def send_message(data)
       # TODO: format
       # TODO: validation
       data = prepare_data(data)

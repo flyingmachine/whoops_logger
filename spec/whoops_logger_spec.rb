@@ -19,34 +19,34 @@ describe "WhoopsLogger" do
   end
   
   describe ".notify" do
-    let(:investigator){ double(:investigator, :investigate! => nil, :report => nil) }
+    let(:investigator){ double(:investigator, :investigate! => nil, :message => nil) }
     
     it "uses the basic strategy if no strategy name is provided" do
-      WhoopsLogger.stub(:send_report)
-      investigator.stub(:ignore_report?).and_return(false)
+      WhoopsLogger.stub(:send_message)
+      investigator.stub(:ignore_message?).and_return(false)
       WhoopsLogger::Investigator.should_receive(:new).with(WhoopsLogger.strategies["default::basic"], {}).and_return(investigator)
       WhoopsLogger.notify({})
     end
     
-    it "sends a report when the investigator is not ignoring the event" do
-      investigator.should_receive(:ignore_report?).and_return(false)
+    it "sends a message when the investigator is not ignoring the event" do
+      investigator.should_receive(:ignore_message?).and_return(false)
       WhoopsLogger::Investigator.stub(:new).and_return(investigator)
       
-      WhoopsLogger.should_receive(:send_report)
+      WhoopsLogger.should_receive(:send_message)
       WhoopsLogger.notify({})
     end
     
     it "does not sned a request if the investigator is ignoring the event" do
-      investigator.should_receive(:ignore_report?).and_return(true)
+      investigator.should_receive(:ignore_message?).and_return(true)
       WhoopsLogger::Investigator.stub(:new).and_return(investigator)
       
-      WhoopsLogger.should_not_receive(:send_report)
+      WhoopsLogger.should_not_receive(:send_message)
       WhoopsLogger.notify({})
     end
   end
   
-  describe ".send_report" do
-    it "should send a report to the configured URL" do
+  describe ".send_message" do
+    it "should send a message to the configured URL" do
       FakeWeb.register_uri(:post, "http://whoops.com/events/", :body => "success")
       WhoopsLogger.notify({})
       request = FakeWeb.last_request

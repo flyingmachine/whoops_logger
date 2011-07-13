@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Higginbotham"]
   s.date = %q{2011-07-09}
-  s.description = %q{Handles basic notification responsibilities and allows creation of report creation strategies}
+  s.description = %q{Handles basic notification responsibilities and allows creation of message creation strategies}
   s.email = %q{daniel@flyingmachinestudios.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
     "lib/whoops_logger.rb",
     "lib/whoops_logger/configuration.rb",
     "lib/whoops_logger/investigator.rb",
-    "lib/whoops_logger/report.rb",
+    "lib/whoops_logger/message.rb",
     "lib/whoops_logger/sender.rb",
     "lib/whoops_logger/strategies/basic.rb",
     "lib/whoops_logger/strategy.rb",
@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Handles basic notification responsibilities and allows creation of report creation strategies}
+  s.summary = %q{Handles basic notification responsibilities and allows creation of message creation strategies}
   s.test_files = [
     "spec/configuration_spec.rb",
     "spec/investigator_spec.rb",
