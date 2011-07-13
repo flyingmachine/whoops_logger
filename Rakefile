@@ -12,8 +12,8 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "whoops_notifier"
-  gem.homepage = "http://github.com/flyingmachine/whoops_notifier"
+  gem.name = "whoops_logger"
+  gem.homepage = "http://github.com/flyingmachine/whoops_logger"
   gem.license = "MIT"
   gem.summary = %Q{Handles basic notification responsibilities and allows creation of report creation strategies}
   gem.description = %Q{Handles basic notification responsibilities and allows creation of report creation strategies}
@@ -44,7 +44,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "whoops_notifier #{version}"
+  rdoc.title = "whoops_logger #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
