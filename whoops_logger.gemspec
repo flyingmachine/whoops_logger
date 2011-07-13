@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{whoops_logger}
-  s.version = "0.0.4"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Higginbotham"]
-  s.date = %q{2011-07-09}
+  s.date = %q{2011-07-12}
   s.description = %q{Handles basic notification responsibilities and allows creation of message creation strategies}
   s.email = %q{daniel@flyingmachinestudios.com}
   s.extra_rdoc_files = [
@@ -27,8 +27,8 @@ Gem::Specification.new do |s|
     "VERSION",
     "lib/whoops_logger.rb",
     "lib/whoops_logger/configuration.rb",
-    "lib/whoops_logger/message_creator.rb",
     "lib/whoops_logger/message.rb",
+    "lib/whoops_logger/message_creator.rb",
     "lib/whoops_logger/sender.rb",
     "lib/whoops_logger/strategies/basic.rb",
     "lib/whoops_logger/strategy.rb",
