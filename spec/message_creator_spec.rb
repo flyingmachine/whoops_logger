@@ -13,6 +13,16 @@ describe "WhoopsLogger::MessageCreator" do
     it "should not raise an exception if strategy argument responds to call" do
       lambda{WhoopsLogger::MessageCreator.new(Proc.new{}, {})}.should_not raise_exception
     end
+    
+    it "sets the message's logger_strategy_name" do
+      mc = WhoopsLogger::MessageCreator.new(WhoopsLogger.strategies["default::basic"], {})
+      mc.message.logger_strategy_name.should == "default::basic"
+    end
+    
+    it "sets the message's logger_strategy_name to anonymous if name method not present" do
+      mc = WhoopsLogger::MessageCreator.new(Proc.new{}, {})
+      mc.message.logger_strategy_name.should == "anonymous"
+    end
   end
   
   describe "#create!" do

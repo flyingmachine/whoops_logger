@@ -1,6 +1,15 @@
 module WhoopsLogger
   class Message
-    ATTRIBUTES = [:event_type, :service, :environment, :message, :event_group_identifier, :event_time, :details]
+    ATTRIBUTES = [
+      :event_type,
+      :service, 
+      :environment,
+      :message,
+      :event_group_identifier,
+      :event_time,
+      :details,
+      :logger_strategy_name
+    ]
     ATTRIBUTES.each do |attribute|
       attr_accessor attribute
     end
