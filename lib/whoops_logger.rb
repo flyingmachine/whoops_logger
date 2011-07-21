@@ -12,15 +12,15 @@ module WhoopsLogger
   class << self
     attr_accessor :strategies, :config
     
-    # @overload notify(raw_data)
+    # @overload log(raw_data)
     #   Notify using the default basic strategy
     #   @param [Hash] raw_data the raw_data expected by the basic strategy, used by strategy to build message
-    # @overload notify(strategy_name, raw_data)
+    # @overload log(strategy_name, raw_data)
     #   @param [Symbol, String] strategy_name
     #   @param [Hash] raw_data same as above
-    def notify(strategy_name, raw_data = {})
+    def log(strategy_name, raw_data = {})
       if strategy_name.is_a? Hash
-        notify("default::basic", strategy_name)
+        log("default::basic", strategy_name)
       else
         message_creator = MessageCreator.new(strategies[strategy_name], raw_data)
         message_creator.create!

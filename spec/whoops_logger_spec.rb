@@ -18,14 +18,14 @@ describe "WhoopsLogger" do
     end
   end
   
-  describe ".notify" do
+  describe ".log" do
     let(:message_creator){ double(:message_creator, :create! => nil, :message => nil) }
     
     it "uses the basic strategy if no strategy name is provided" do
       WhoopsLogger.stub(:send_message)
       message_creator.stub(:ignore_message?).and_return(false)
       WhoopsLogger::MessageCreator.should_receive(:new).with(WhoopsLogger.strategies["default::basic"], {}).and_return(message_creator)
-      WhoopsLogger.notify({})
+      WhoopsLogger.log({})
     end
     
     it "sends a message when the message_creator is not ignoring the event" do
@@ -33,7 +33,7 @@ describe "WhoopsLogger" do
       WhoopsLogger::MessageCreator.stub(:new).and_return(message_creator)
       
       WhoopsLogger.should_receive(:send_message)
-      WhoopsLogger.notify({})
+      WhoopsLogger.log({})
     end
     
     it "does not sned a request if the message_creator is ignoring the event" do
@@ -41,14 +41,14 @@ describe "WhoopsLogger" do
       WhoopsLogger::MessageCreator.stub(:new).and_return(message_creator)
       
       WhoopsLogger.should_not_receive(:send_message)
-      WhoopsLogger.notify({})
+      WhoopsLogger.log({})
     end
   end
   
   describe ".send_message" do
     it "should send a message to the configured URL" do
       FakeWeb.register_uri(:post, "http://whoops.com/events/", :body => "success")
-      WhoopsLogger.notify({})
+      WhoopsLogger.log({})
       request = FakeWeb.last_request
       request.body.should =~ /"event"/
     end
