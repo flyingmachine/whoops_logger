@@ -10,7 +10,6 @@ Add +whoops_logger+ to your Gemfile
 
 Whoops Logger sends Messages to Whoops. Messages are created with Strategies. Below is the basic strategy found in `lib/whoops_logger/basic.rb`:
 
-[source,ruby]
 ----
 strategy = WhoopsLogger::Strategy.new("default::basic")
 
@@ -27,7 +26,6 @@ end
 
 To use this strategy, you would call
 
-[source,ruby]
 ----
 WhoopsLogger.log("default::basic", {
   :event_type             => "your_event_type",
@@ -50,7 +48,6 @@ Internally, each Strategy stores its message builders in the array +message_buil
 
 The method +add_message_builder+ is provided for convenience. Below is an example of +add_message_builder+ taken from the https://github.com/flyingmachine/whoops_rails_logger[Whoops Rails Logger]:
 
-[source, ruby]
 ----
 strategy.add_message_builder(:basic_details) do |message, raw_data|
   message.service     = self.service
@@ -93,7 +90,6 @@ There's a bit more about message builders in the WhoopsLogger::Strategy document
 
 Sometimes you want to ignore a message instead of sending it off to whoops. For example, you might not want to log "Record Not Found" exceptions in Rails. If any of the ignore criteria evaluate to true, then the message is ignored. Below is an example:
 
-[source, ruby]
 ----
 strategy.add_ignore_criteria(:ignore_record_not_found) do |message|
   message.message == "Record Not Found"
