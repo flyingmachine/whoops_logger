@@ -6,6 +6,23 @@ Use Whoops Logger to send log messages to a https://github.com/flyingmachine/who
 
 Add +whoops_logger+ to your Gemfile
 
+Add +WhoopsLogger.config.set(config_path)+ to your project, where +config_path+ is a path to a YAML file. The YAML file takes the following options:
+
+----
+:host
+:http_open_timeout
+:http_read_timeout,
+:port
+:protocol
+:proxy_host,
+:proxy_pass
+:proxy_port
+:proxy_user
+:secure
+----
+
+You can also use pass a Hash to +WhoopsLogger.config.set+ instead of a path to a YAML file.
+
 == Usage
 
 Whoops Logger sends Messages to Whoops. Messages are created with Strategies. Below is the basic strategy found in `lib/whoops_logger/basic.rb`:
