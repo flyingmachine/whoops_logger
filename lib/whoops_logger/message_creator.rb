@@ -11,6 +11,7 @@ module WhoopsLogger
       self.strategy = strategy
       self.raw_data = raw_data
       self.message = Message.new
+      self.message.time = Time.now
       self.message.logger_strategy_name = strategy.respond_to?(:name) ? strategy.name : 'anonymous'
     end
     
