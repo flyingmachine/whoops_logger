@@ -80,9 +80,12 @@ module WhoopsLogger
 
     def set(config)
       case config
-      when Hash: set_with_hash(config)
-      when IO: set_with_io(config)
-      when String: set_with_string(config)
+      when Hash 
+        set_with_hash(config)
+      when IO
+        set_with_io(config)
+      when String
+        set_with_string(config)
       end
     end
     
