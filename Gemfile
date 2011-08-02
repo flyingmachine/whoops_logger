@@ -10,6 +10,10 @@ group :development do
   gem "rspec", "~> 2.6.0"
   gem "bundler", "~> 1.0.0"
   gem "jeweler", "~> 1.5.2"
-  gem "ruby-debug"
+  if RUBY_VERSION =~ /1.8/
+    gem "ruby-debug"
+  else
+    gem "ruby-debug19"
+  end
   gem "fakeweb"
 end

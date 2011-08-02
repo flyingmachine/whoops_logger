@@ -13,7 +13,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "whoops_logger"
-  gem.homepage = "http://github.com/flyingmachine/whoops_logger"
+  gem.homepage = "http://www.whoopsapp.com"
   gem.license = "MIT"
   gem.summary = %Q{Handles basic notification responsibilities and allows creation of message creation strategies}
   gem.description = %Q{Handles basic notification responsibilities and allows creation of message creation strategies}

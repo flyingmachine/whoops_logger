@@ -12,10 +12,6 @@ Gem::Specification.new do |s|
   s.date = %q{2011-07-31}
   s.description = %q{Handles basic notification responsibilities and allows creation of message creation strategies}
   s.email = %q{daniel@flyingmachinestudios.com}
-  s.extra_rdoc_files = [
-    "LICENSE.txt",
-    "README.asciidoc"
-  ]
   s.files = [
     ".document",
     ".rspec",
