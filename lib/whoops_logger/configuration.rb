@@ -35,7 +35,9 @@ module WhoopsLogger
 
     # The password to use when logging into your proxy server (if using a proxy)
     attr_accessor :proxy_pass
-
+    
+    attr_accessor :logger
+    
     alias_method :secure?, :secure
 
     def initialize
